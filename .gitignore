@@ -1,3 +1,10 @@
 outputs/
 __pycache__/
 .nfs*
+r3m/train.log
+r3m.egg-info
+r3m/r3moutput
+r3m/r3moutput
+r3m/checkpoints/
+r3m.egg-info
+r3m/models/model

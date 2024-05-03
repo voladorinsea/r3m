@@ -16,8 +16,9 @@ class LangEncoder(nn.Module):
     from transformers import AutoTokenizer, AutoModel, AutoConfig
     self.device = device
     self.modelname = "distilbert-base-uncased"
-    self.tokenizer = AutoTokenizer.from_pretrained(self.modelname)
-    self.model = AutoModel.from_pretrained(self.modelname).to(self.device)
+    self.modelpath = "/home/liang/Research/ImitationLearning/AttnMimic/VLP/r3m/r3m/models/model"
+    self.tokenizer = AutoTokenizer.from_pretrained(self.modelpath)
+    self.model = AutoModel.from_pretrained(self.modelpath).to(self.device)
     self.lang_size = 768
       
   def forward(self, langs):

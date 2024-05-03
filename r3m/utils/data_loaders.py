@@ -26,10 +26,11 @@ from torchvision.utils import save_image
 import json
 import random
 
-
+root_path = "/home/liang/Research/ImitationLearning/AttnMimic/VLP/preprocess/image"
 def get_ind(vid, index, ds):
     if ds == "ego4d":
-        return torchvision.io.read_image(f"{vid}/{index:06}.jpg")
+        path = os.path.join(root_path, f"{vid}/{index:06}.jpg")
+        return torchvision.io.read_image(path)
     else:
         raise NameError('Invalid Dataset')
 

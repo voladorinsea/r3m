@@ -22,10 +22,10 @@ lr: 1e-4
 # data
 alpha: 0.2
 dataset: "ego4d"
-wandbproject: 
-wandbuser: 
+wandbproject: r3m
+wandbuser: lcpm
 doaug: "none"
-datapath: 
+datapath: "/home/liang/Research/ImitationLearning/AttnMimic/VLP/preprocess/image/"
 
 agent:
   _target_: r3m.R3M
@@ -36,6 +36,6 @@ agent:
   l2weight: 0.00001
   l1weight: 0.00001
   tcnweight: 1.0
-  langweight: 0.0
+  langweight: 1.0
   l2dist: true
   bs: ${batch_size}

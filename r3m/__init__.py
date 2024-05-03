@@ -2,7 +2,7 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
-from r3m.models.models_r3m import R3M
+from r3m.models import R3M
 
 import os 
 from os.path import expanduser
@@ -41,6 +41,20 @@ def remove_language_head(state_dict):
             del state_dict[key]
     return state_dict
 
+def load_r3m_local(modelid):
+    if modelid == "rep_r3m_34":
+        foldername = "r3m_34"
+        modelpath = '/home/liang/Research/ImitationLearning/AttnMimic/VLP/r3m/r3m/checkpoints/r3m_34/snapshot.pt'
+        configpath = '/home/liang/Research/ImitationLearning/AttnMimic/VLP/r3m/r3m/checkpoints/r3m_34/config.yaml'
+        
+    modelcfg = omegaconf.OmegaConf.load(configpath)
+    cleancfg = cleanup_config(modelcfg)
+    rep = hydra.utils.instantiate(cleancfg)
+    rep = torch.nn.DataParallel(rep)
+    r3m_state_dict = remove_language_head(torch.load(modelpath, map_location=torch.device(device))['r3m'])
+    rep.load_state_dict(r3m_state_dict)
+    return rep
+
 def load_r3m(modelid):
     home = os.path.join(expanduser("~"), ".r3m")
     if modelid == "resnet50":
@@ -54,7 +68,7 @@ def load_r3m(modelid):
     elif modelid == "resnet18":
         foldername = "r3m_18"
         modelurl = 'https://drive.google.com/uc?id=1A1ic-p4KtYlKXdXHcV2QV0cUzI4kn0u-'
-        configurl = 'https://drive.google.com/uc?id=1nitbHQ-GRorxc7vMUiEHjHWP5N11Jvc6'
+    
     else:
         raise NameError('Invalid Model ID')
 
